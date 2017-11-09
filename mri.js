@@ -40,7 +40,7 @@ if (subjIdx == -1){
 loadedData.push({subject:subject});
 subjIdx = loadedData.length-1;
 }
-loadedData[subjIdx][area] = mean;
+loadedData[subjIdx][area] = mean===undefined ? '' : mean;
 
 
 }
@@ -112,7 +112,7 @@ function readFile(file){
 
 
 function convertArrayOfObjectsToCSV(args) {
-        var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+        var result, ctr, keys,keysSet, columnDelimiter, lineDelimiter, data;
 
         data = args.data || null;
         if (data == null || !data.length) {
@@ -121,8 +121,11 @@ function convertArrayOfObjectsToCSV(args) {
 
         columnDelimiter = args.columnDelimiter || ',';
         lineDelimiter = args.lineDelimiter || '\n';
+        keys = []
 
-        keys = Object.keys(data[0]);
+        data.map( function(item){ keys=keys.concat(Object.keys(item)); });
+        keysSet = new Set(keys);
+        keys = Array.from(keysSet);
 
         result = '';
         result += keys.join(columnDelimiter);
@@ -133,7 +136,7 @@ function convertArrayOfObjectsToCSV(args) {
             keys.forEach(function(key) {
                 if (ctr > 0) result += columnDelimiter;
 
-                result += item[key];
+                result += item[key] === undefined ? '' : item[key];
                 ctr++;
             });
             result += lineDelimiter;
@@ -154,6 +157,7 @@ function downloadCSV(args) {
             csv = 'data:text/csv;charset=utf-8,' + csv;
         }
         data = encodeURI(csv);
+        console.log('loadedData', loadedData);
 
         window.open(data, '_blank');
     }
