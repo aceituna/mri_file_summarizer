@@ -3,7 +3,7 @@
 
 </head>
 <body>
-<input type="file" multiple accept=".xls" onchange="parseFiles(this)">
+<input type="file" multiple accept=".xls" id="fileinput" onchange="parseFiles(this)">
 <div id="myGrid" style="height: 115px;width:500px" class="ag-fresh"></div>
 <button onclick="downloadCSV()">Download CSV</button>
 </body>

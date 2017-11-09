@@ -1,4 +1,5 @@
-
+let fileInput = document.getElementById('fileinput');
+fileInput.value = '';
 let loadedData = [];
 
 function parseFiles(input){
@@ -39,8 +40,7 @@ if (subjIdx == -1){
 loadedData.push({subject:subject});
 subjIdx = loadedData.length-1;
 }
-loadedData[subjIdx].area = area;
-loadedData[subjIdx].mean = mean;
+loadedData[subjIdx][area] = mean;
 
 
 }
@@ -155,9 +155,5 @@ function downloadCSV(args) {
         }
         data = encodeURI(csv);
 
-        link = document.createElement('a');
-        link.setAttribute('href', data);
-        link.setAttribute('download', filename);
         window.open(data, '_blank');
-//        link.click();
     }
