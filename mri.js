@@ -115,9 +115,6 @@ function getAreaFromFname(fname) {
     return name.split('-')[1] + '-' + name.split('-')[2];
 }
 
-function readFile(file) {
-
-}
 
 
 function convertArrayOfObjectsToCSV(args) {
